@@ -1,0 +1,253 @@
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f0f23);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Arial", sans-serif;
+}
+
+.tv-container {
+  --tv-size: 380px;
+  --orange: #ff6b00;
+  --orange-dark: #e55a00;
+  --green: #00ff88;
+  --gray: #2a2a2a;
+}
+
+.tv-body {
+  position: relative;
+  width: var(--tv-size);
+  height: calc(var(--tv-size) * 0.85);
+  background: linear-gradient(145deg, var(--orange), var(--orange-dark));
+  border-radius: 25px 25px 15px 15px;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.6),
+    inset 0 8px 16px rgba(255, 255, 255, 0.25),
+    inset 0 -8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Marco de la pantalla */
+.tv-screen-frame {
+  position: absolute;
+  top: 6%;
+  left: 6%;
+  right: 6%;
+  bottom: 14%;
+  background: linear-gradient(145deg, #4a4a4a, #6a6a6a);
+  border-radius: 18px;
+  box-shadow:
+    inset 0 4px 12px rgba(255, 255, 255, 0.35),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.45),
+    0 0 25px rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border: 4px solid #5a5a5a;
+}
+
+/* Vidrio reflectante (transparente, muestra verde debajo) */
+.tv-glass {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.2) 30%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(0, 255, 136, 0.2) 70%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border-radius: 12px;
+  backdrop-filter: blur(0.5px) saturate(1.0);
+  box-shadow:
+    inset 0 2px 6px rgba(255, 255, 255, 0.6),
+    0 0 30px rgba(0, 255, 136, 0.3);
+  z-index: 3;
+}
+
+/* Pantalla verde CRT BRILLANTE */
+.tv-screen {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  background: var(--green);
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 60px rgba(0, 255, 136, 0.8),
+    inset 0 0 120px rgba(0, 255, 255, 0.4),
+    inset 0 4px 20px rgba(255, 255, 255, 0.9),
+    0 0 40px rgba(0, 255, 136, 0.8),
+    0 0 80px rgba(0, 255, 136, 0.4);
+  z-index: 2;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scanlines animados */
+.tv-screen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    rgba(255, 255, 255, 0.95) 1px,
+    transparent 3px
+  );
+  animation: scanlines 0.08s linear infinite;
+}
+
+@keyframes scanlines {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(4px);
+  }
+}
+
+/* Reflejo en esquina superior */
+.tv-screen::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 40px;
+  height: 30px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+/* Perillas */
+.tv-knobs {
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 18px;
+}
+
+.knob {
+  width: 28px;
+  height: 28px;
+  background: radial-gradient(circle at 30% 30%, #777 0%, #555 50%, #444 100%);
+  border: 4px solid #999;
+  border-radius: 50%;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.knob:hover {
+  transform: rotate(15deg) scale(1.05);
+}
+
+.knob::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(#333, #111);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.knob1 {
+  transform: rotate(-15deg);
+}
+.knob2 {
+  transform: rotate(20deg);
+}
+
+/* Antenas */
+.tv-antennas {
+  position: absolute;
+  top: -12%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 25px;
+}
+
+.antenna {
+  width: 5px;
+  height: 50px;
+  background: linear-gradient(to top, #4a4a4a, #888);
+  border-radius: 3px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.antenna::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -4px;
+  right: -4px;
+  height: 12px;
+  background: var(--orange);
+  border-radius: 50%;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.left {
+  transform: translateX(-12px) rotate(-8deg);
+}
+.right {
+  transform: translateX(12px) rotate(8deg);
+}
+
+/* Patas */
+.tv-legs {
+  position: absolute;
+  bottom: -12%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: calc(var(--tv-size) * 0.12);
+}
+
+.leg {
+  width: 25px;
+  height: 40px;
+  background: linear-gradient(145deg, #3a3a3a, #666);
+  border-radius: 15px 15px 8px 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.leg::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: #222;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .tv-container {
+    --tv-size: 280px;
+  }
+}
