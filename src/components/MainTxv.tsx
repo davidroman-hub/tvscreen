@@ -1,8 +1,25 @@
-import { FC } from "react";
+import { FC, useRef } from "react";
+
 
 export interface TVprops {
   turnOn: boolean;
   setTurnOn: any;
+}
+
+function MoviePlayer({ tmdbId }: { tmdbId: string }) {
+  const embedUrl = `https://player.autoembed.cc/embed/movie/${tmdbId}`;
+
+  if (!embedUrl) return <div>No disponible</div>;
+
+  return (
+    <iframe
+      src={embedUrl}
+      width="100%"
+      height="230px"
+      allowFullScreen
+      style={{ border: "none" }}
+    />
+  );
 }
 
 const TV: FC<TVprops> = () => {
@@ -10,10 +27,10 @@ const TV: FC<TVprops> = () => {
     <div className="tv-container">
       <div className="tv-body">
         <div className="tv-screen-frame">
-          <div className="tv-glass"></div>
+          <div className="tv-glass" style={{ pointerEvents: "none" }}></div>
           <div className="tv-screen">
             {/* <!-- Aquí pon tu <video> para streaming --> */}
-            Selecciona un canal
+            <MoviePlayer tmdbId="tt0499549" />
           </div>
         </div>
         <div className="tv-knobs">
