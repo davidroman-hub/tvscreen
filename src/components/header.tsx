@@ -50,7 +50,12 @@ const Header: FC<HeaderProps> = ({ title, setTmdbId, validate,setValidate }) => 
           <p>{data.Plot}</p>
         </div>
         <div className="card-footer text-center">
-          <img src={data.Poster} width={100} height={100} />
+          <img 
+            src={data.Poster} 
+            width={100} 
+            height={100} 
+            alt={`${data.Title} poster`}
+          />
           <button
             onClick={() => setTmdbId(data.imdbID)}
             className="btn btn-circle btn-gradient btn-primary"
