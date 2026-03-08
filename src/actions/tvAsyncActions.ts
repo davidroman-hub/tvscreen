@@ -1,6 +1,6 @@
 export async function fetchMoviesInfo(movieName: string) {
   const response = await fetch(
-    `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_KEY}&t=${encodeURIComponent(movieName)}`,
+    `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_KEY}&t=${encodeURIComponent(movieName)}`,
   );
 
   if (!response.ok) {
