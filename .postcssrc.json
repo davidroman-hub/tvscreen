@@ -1,0 +1,9 @@
+{
+  "plugins": {
+    "tailwindcss": {},
+    "autoprefixer": {},
+    "postcss-calc": {
+      "warnWhenCannotResolve": false
+    }
+  }
+}

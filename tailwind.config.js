@@ -5,7 +5,12 @@ module.exports = {
     "./node_modules/flyonui/dist/js/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      // Sobrescribir valores infinitos problemáticos
+      maxWidth: {
+        'none': '999999px',
+      },
+    },
   },
   plugins: [
     require("flyonui")
