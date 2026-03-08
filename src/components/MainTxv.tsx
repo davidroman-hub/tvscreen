@@ -1,36 +1,66 @@
-import { FC, useRef } from "react";
-
+import { FC, useEffect } from "react";
+import useSWR, { mutate } from "swr";
 
 export interface TVprops {
   turnOn: boolean;
   setTurnOn: any;
+  tmdbId: string;
 }
 
 function MoviePlayer({ tmdbId }: { tmdbId: string }) {
-  const embedUrl = `https://player.autoembed.cc/embed/movie/${tmdbId}`;
+  // Limpiar caché de películas anteriores (excepto la actual)
+  useEffect(() => {
+    if (tmdbId) {
+      const currentKey = `movie-${tmdbId}`;
+      mutate(
+        (key) => typeof key === 'string' && key.startsWith('movie-') && key !== currentKey,
+        undefined,
+        { revalidate: false }
+      );
+    }
+  }, [tmdbId]);
 
-  if (!embedUrl) return <div>No disponible</div>;
+  const { data: movieId } = useSWR(
+    tmdbId ? `movie-${tmdbId}` : null,
+    () => Promise.resolve(tmdbId),
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      dedupingInterval: 0, // No deduplicar requests
+    }
+  );
+
+  if (!movieId) {
+    return (
+      <div className="flex items-center justify-center h-full text-white">
+        <p>No movie selected</p>
+      </div>
+    );
+  }
+
+  const embedUrl = `https://player.autoembed.cc/embed/movie/${movieId}`;
 
   return (
     <iframe
       src={embedUrl}
       width="100%"
-      height="230px"
+      height="100%"
       allowFullScreen
       style={{ border: "none" }}
+      title="Movie Player"
     />
   );
 }
 
-const TV: FC<TVprops> = () => {
+const TV: FC<TVprops> = ({ tmdbId }) => {
   return (
     <div className="tv-container">
       <div className="tv-body">
         <div className="tv-screen-frame">
           <div className="tv-glass" style={{ pointerEvents: "none" }}></div>
           <div className="tv-screen">
-            {/* <!-- Aquí pon tu <video> para streaming --> */}
-            <MoviePlayer tmdbId="tt0499549" />
+        
+            {tmdbId ? <MoviePlayer tmdbId={tmdbId} /> : ""}
           </div>
         </div>
         <div className="tv-knobs">

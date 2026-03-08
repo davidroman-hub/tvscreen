@@ -8,7 +8,7 @@ body {
 }
 
 .tv-container {
-  --tv-size: 380px;
+  --tv-size: min(55vh, 520px);
   --orange: #ff6b00;
   --orange-dark: #e55a00;
   --green: #00ff88;
@@ -69,6 +69,7 @@ body {
 
 /* Pantalla verde CRT BRILLANTE */
 .tv-screen {
+  height: 100%;
   position: absolute;
   top: 6px;
   left: 6px;
@@ -248,6 +249,6 @@ body {
 /* Responsive */
 @media (max-width: 500px) {
   .tv-container {
-    --tv-size: 280px;
+    --tv-size: min(40vh, 280px);
   }
 }
