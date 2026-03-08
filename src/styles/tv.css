@@ -247,8 +247,14 @@ body {
 }
 
 /* Responsive */
+@media (max-width: 768px) {
+  .tv-container {
+    --tv-size: min(70vh, 450px);
+  }
+}
+
 @media (max-width: 500px) {
   .tv-container {
-    --tv-size: min(40vh, 280px);
+    --tv-size: min(65vh, 380px);
   }
 }

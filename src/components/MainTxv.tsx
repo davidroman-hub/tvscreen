@@ -76,6 +76,8 @@ const TV: FC<TVprops> = ({ tmdbId }) => {
           <div className="leg right"></div>
         </div>
       </div>
+
+              <span className="ml-2">v.1.0.2</span>
     </div>
   );
 };

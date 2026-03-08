@@ -35,7 +35,6 @@ function App() {
       {validate ? <LogOutButton logout={logout} /> : ""}
       <div className="flex justify-center items-center py-8">
         <TV setTurnOn={setTurnOn} turnOn={turnOn} tmdbId={tmdbId} />
-        <span className="ml-2">v.1.0.0</span>
       </div>
     </div>
   );
